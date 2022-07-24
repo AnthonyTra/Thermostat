@@ -1,0 +1,1266 @@
+#+TITLE: Problem 1 test_clock_update and clock_main tests
+#+TESTY: PREFIX="prob1"
+#+TESTY: USE_VALGRIND=1
+
+* test_clock_update midnight-set
+#+TESTY: program='./test_clock_update midnight-set'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_tod_from_secs() sets
+    // the time correctly for input SECS
+    int SECS = 0;               // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // should be changed
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 0
+tod = {
+  .hours   = 12,
+  .minutes = 0,
+  .seconds = 0,
+  .ampm    = 1,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update after-midnight-set
+#+TESTY: program='./test_clock_update after-midnight-set'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_tod_from_secs() sets
+    // the time correctly for input SECS
+    int SECS = 101;             // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // should be changed
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 0
+tod = {
+  .hours   = 12,
+  .minutes = 1,
+  .seconds = 41,
+  .ampm    = 1,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update after-1am-set
+#+TESTY: program='./test_clock_update after-1am-set'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_tod_from_secs() sets
+    // the time correctly for input SECS
+    int SECS = 4170;            // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // should be changed
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 0
+tod = {
+  .hours   = 1,
+  .minutes = 9,
+  .seconds = 30,
+  .ampm    = 1,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update nearly-noon-set
+#+TESTY: program='./test_clock_update nearly-noon-set'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_tod_from_secs() sets
+    // the time correctly for input SECS
+    int SECS = 43199;           // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // should be changed
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 0
+tod = {
+  .hours   = 11,
+  .minutes = 59,
+  .seconds = 59,
+  .ampm    = 1,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update is-noon-set
+#+TESTY: program='./test_clock_update is-noon-set'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_tod_from_secs() sets
+    // the time correctly for input SECS
+    int SECS = 43200;           // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // should be changed
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 0
+tod = {
+  .hours   = 12,
+  .minutes = 0,
+  .seconds = 0,
+  .ampm    = 2,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update after-1pm-set
+#+TESTY: program='./test_clock_update after-1pm-set'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_tod_from_secs() sets
+    // the time correctly for input SECS
+    int SECS = 47089;           // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // should be changed
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 0
+tod = {
+  .hours   = 1,
+  .minutes = 4,
+  .seconds = 49,
+  .ampm    = 2,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update after-six-pm-set
+#+TESTY: program='./test_clock_update after-six-pm-set'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_tod_from_secs() sets
+    // the time correctly for input SECS
+    int SECS = 67089;           // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // should be changed
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 0
+tod = {
+  .hours   = 6,
+  .minutes = 38,
+  .seconds = 9,
+  .ampm    = 2,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update nearly-midnight-set
+#+TESTY: program='./test_clock_update nearly-midnight-set'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_tod_from_secs() sets
+    // the time correctly for input SECS
+    int SECS = 86399;           // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // should be changed
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 0
+tod = {
+  .hours   = 11,
+  .minutes = 59,
+  .seconds = 59,
+  .ampm    = 2,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update midnight-bits
+#+TESTY: program='./test_clock_update midnight-bits'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_bits_from_tod() sets
+    // the the specified integer bits correctly from
+    // a tod struct
+    tod_t tod = {
+      .hours   = 12,
+      .minutes = 0,
+      .seconds = 0,
+      .ampm    = 1,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 0
+dispint bits       : 00 01 0110000 1101101 0111111 0111111
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+   # ####   #### ####   
+   #    #   #  # #  #   
+   #    # o #  # #  #   
+   # ####   #  # #  #   
+   # #    o #  # #  #   
+   # #      #  # #  # AM
+   # ####   #### ####   
+#+END_SRC
+
+* test_clock_update after-midnight-bits
+#+TESTY: program='./test_clock_update after-midnight-bits'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_from_tod() sets
+    // the the specified integer bits correctly from
+    // a tod struct
+    tod_t tod = {
+      .hours   = 12,
+      .minutes = 1,
+      .seconds = 41,
+      .ampm    = 1,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 0
+dispint bits       : 00 01 0110000 1101101 0111111 0110000
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+   # ####   ####    #   
+   #    #   #  #    #   
+   #    # o #  #    #   
+   # ####   #  #    #   
+   # #    o #  #    #   
+   # #      #  #    # AM
+   # ####   ####    #   
+#+END_SRC
+
+* test_clock_update after-1am-bits
+#+TESTY: program='./test_clock_update after-1am-bits'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_from_tod() sets
+    // the the specified integer bits correctly from
+    // a tod struct
+    tod_t tod = {
+      .hours   = 1,
+      .minutes = 9,
+      .seconds = 30,
+      .ampm    = 1,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 0
+dispint bits       : 00 01 0000000 0110000 0111111 1111011
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+        #   #### ####   
+        #   #  # #  #   
+        # o #  # #  #   
+        #   #  # ####   
+        # o #  #    #   
+        #   #  #    # AM
+        #   #### ####   
+#+END_SRC
+
+* test_clock_update nearly-noon-bits
+#+TESTY: program='./test_clock_update nearly-noon-bits'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_from_tod() sets
+    // the the specified integer bits correctly from
+    // a tod struct
+    tod_t tod = {
+      .hours   = 11,
+      .minutes = 59,
+      .seconds = 59,
+      .ampm    = 1,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 0
+dispint bits       : 00 01 0110000 0110000 1011011 1111011
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+   #    #   #### ####   
+   #    #   #    #  #   
+   #    # o #    #  #   
+   #    #   #### ####   
+   #    # o    #    #   
+   #    #      #    # AM
+   #    #   #### ####   
+#+END_SRC
+
+* test_clock_update is-noon-bits
+#+TESTY: program='./test_clock_update is-noon-bits'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_from_tod() sets
+    // the the specified integer bits correctly from
+    // a tod struct
+    tod_t tod = {
+      .hours   = 12,
+      .minutes = 0,
+      .seconds = 0,
+      .ampm    = 2,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 0
+dispint bits       : 00 10 0110000 1101101 0111111 0111111
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+   # ####   #### ####   
+   #    #   #  # #  #   
+   #    # o #  # #  #   
+   # ####   #  # #  #   
+   # #    o #  # #  #   
+   # #      #  # #  #   
+   # ####   #### #### PM
+#+END_SRC
+
+* test_clock_update after-1pm-bits
+#+TESTY: program='./test_clock_update after-1pm-bits'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_from_tod() sets
+    // the the specified integer bits correctly from
+    // a tod struct
+    tod_t tod = {
+      .hours   = 1,
+      .minutes = 4,
+      .seconds = 49,
+      .ampm    = 2,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 0
+dispint bits       : 00 10 0000000 0110000 0111111 1110010
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+        #   #### #  #   
+        #   #  # #  #   
+        # o #  # #  #   
+        #   #  # ####   
+        # o #  #    #   
+        #   #  #    #   
+        #   ####    # PM
+#+END_SRC
+
+* test_clock_update after-six-pm-bits
+#+TESTY: program='./test_clock_update after-six-pm-bits'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_from_tod() sets
+    // the the specified integer bits correctly from
+    // a tod struct
+    tod_t tod = {
+      .hours   = 6,
+      .minutes = 38,
+      .seconds = 9,
+      .ampm    = 2,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 0
+dispint bits       : 00 10 0000000 1011111 1111001 1111111
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+     ####   #### ####   
+     #         # #  #   
+     #    o    # #  #   
+     ####   #### ####   
+     #  # o    # #  #   
+     #  #      # #  #   
+     ####   #### #### PM
+#+END_SRC
+
+* test_clock_update nearly-midnight-bits
+#+TESTY: program='./test_clock_update nearly-midnight-bits'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_from_tod() sets
+    // the the specified integer bits correctly from
+    // a tod struct
+    tod_t tod = {
+      .hours   = 11,
+      .minutes = 59,
+      .seconds = 59,
+      .ampm    = 2,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 0
+dispint bits       : 00 10 0110000 0110000 1011011 1111011
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+   #    #   #### ####   
+   #    #   #    #  #   
+   #    # o #    #  #   
+   #    #   #### ####   
+   #    # o    #    #   
+   #    #      #    #   
+   #    #   #### #### PM
+#+END_SRC
+
+* test_clock_update afternoon-bits
+#+TESTY: program='./test_clock_update afternoon-bits'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_from_tod() sets
+    // the the specified integer bits correctly from
+    // a tod struct
+    tod_t tod = {
+      .hours   = 12,
+      .minutes = 52,
+      .seconds = 28,
+      .ampm    = 2,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 0
+dispint bits       : 00 10 0110000 1101101 1011011 1101101
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+   # ####   #### ####   
+   #    #   #       #   
+   #    # o #       #   
+   # ####   #### ####   
+   # #    o    # #      
+   # #         # #      
+   # ####   #### #### PM
+#+END_SRC
+
+* test_clock_update midnight-update
+#+TESTY: program='./test_clock_update midnight-update'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly changes
+    // CLOCK_DISPLAY_PORT to target bits based on
+    // TIME_OF_DAY_SEC
+    TIME_OF_DAY_SEC  = 0;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 0
+TIME_OF_DAY_SEC    : 0
+CLOCK_DISPLAY_PORT : 00 01 0110000 1101101 0111111 0111111
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+   # ####   #### ####   
+   #    #   #  # #  #   
+   #    # o #  # #  #   
+   # ####   #  # #  #   
+   # #    o #  # #  #   
+   # #      #  # #  # AM
+   # ####   #### ####   
+#+END_SRC
+
+* test_clock_update after-midnight-update
+#+TESTY: program='./test_clock_update after-midnight-update'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly changes
+    // CLOCK_DISPLAY_PORT to target bits based on
+    // TIME_OF_DAY_SEC
+    TIME_OF_DAY_SEC  =   101;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 0
+TIME_OF_DAY_SEC    : 101
+CLOCK_DISPLAY_PORT : 00 01 0110000 1101101 0111111 0110000
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+   # ####   ####    #   
+   #    #   #  #    #   
+   #    # o #  #    #   
+   # ####   #  #    #   
+   # #    o #  #    #   
+   # #      #  #    # AM
+   # ####   ####    #   
+#+END_SRC
+
+* test_clock_update after-1am-update
+#+TESTY: program='./test_clock_update after-1am-update'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly changes
+    // CLOCK_DISPLAY_PORT to target bits based on
+    // TIME_OF_DAY_SEC
+    TIME_OF_DAY_SEC  =   4170;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 0
+TIME_OF_DAY_SEC    : 4170
+CLOCK_DISPLAY_PORT : 00 01 0000000 0110000 0111111 1111011
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+        #   #### ####   
+        #   #  # #  #   
+        # o #  # #  #   
+        #   #  # ####   
+        # o #  #    #   
+        #   #  #    # AM
+        #   #### ####   
+#+END_SRC
+
+* test_clock_update nearly-noon-update
+#+TESTY: program='./test_clock_update nearly-noon-update'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly changes
+    // CLOCK_DISPLAY_PORT to target bits based on
+    // TIME_OF_DAY_SEC
+    TIME_OF_DAY_SEC  =   43199;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 0
+TIME_OF_DAY_SEC    : 43199
+CLOCK_DISPLAY_PORT : 00 01 0110000 0110000 1011011 1111011
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+   #    #   #### ####   
+   #    #   #    #  #   
+   #    # o #    #  #   
+   #    #   #### ####   
+   #    # o    #    #   
+   #    #      #    # AM
+   #    #   #### ####   
+#+END_SRC
+
+* test_clock_update is-noon-update
+#+TESTY: program='./test_clock_update is-noon-update'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly changes
+    // CLOCK_DISPLAY_PORT to target bits based on
+    // TIME_OF_DAY_SEC
+    TIME_OF_DAY_SEC  =   43200;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 0
+TIME_OF_DAY_SEC    : 43200
+CLOCK_DISPLAY_PORT : 00 10 0110000 1101101 0111111 0111111
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+   # ####   #### ####   
+   #    #   #  # #  #   
+   #    # o #  # #  #   
+   # ####   #  # #  #   
+   # #    o #  # #  #   
+   # #      #  # #  #   
+   # ####   #### #### PM
+#+END_SRC
+
+* test_clock_update after-1pm-update
+#+TESTY: program='./test_clock_update after-1pm-update'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly changes
+    // CLOCK_DISPLAY_PORT to target bits based on
+    // TIME_OF_DAY_SEC
+    TIME_OF_DAY_SEC  =   47089;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 0
+TIME_OF_DAY_SEC    : 47089
+CLOCK_DISPLAY_PORT : 00 10 0000000 0110000 0111111 1110010
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+        #   #### #  #   
+        #   #  # #  #   
+        # o #  # #  #   
+        #   #  # ####   
+        # o #  #    #   
+        #   #  #    #   
+        #   ####    # PM
+#+END_SRC
+
+* test_clock_update after-six-pm-update
+#+TESTY: program='./test_clock_update after-six-pm-update'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly changes
+    // CLOCK_DISPLAY_PORT to target bits based on
+    // TIME_OF_DAY_SEC
+    TIME_OF_DAY_SEC  =   67089;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 0
+TIME_OF_DAY_SEC    : 67089
+CLOCK_DISPLAY_PORT : 00 10 0000000 1011111 1111001 1111111
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+     ####   #### ####   
+     #         # #  #   
+     #    o    # #  #   
+     ####   #### ####   
+     #  # o    # #  #   
+     #  #      # #  #   
+     ####   #### #### PM
+#+END_SRC
+
+* test_clock_update nearly-midnight-update
+#+TESTY: program='./test_clock_update nearly-midnight-update'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly changes
+    // CLOCK_DISPLAY_PORT to target bits based on
+    // TIME_OF_DAY_SEC
+    TIME_OF_DAY_SEC  =   86399;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 0
+TIME_OF_DAY_SEC    : 86399
+CLOCK_DISPLAY_PORT : 00 10 0110000 0110000 1011011 1111011
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+   #    #   #### ####   
+   #    #   #    #  #   
+   #    # o #    #  #   
+   #    #   #### ####   
+   #    # o    #    #   
+   #    #      #    #   
+   #    #   #### #### PM
+#+END_SRC
+
+* test_clock_update afternoon-update
+#+TESTY: program='./test_clock_update afternoon-update'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly changes
+    // CLOCK_DISPLAY_PORT to target bits based on
+    // TIME_OF_DAY_SEC
+    TIME_OF_DAY_SEC  =   46348;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 0
+TIME_OF_DAY_SEC    : 46348
+CLOCK_DISPLAY_PORT : 00 10 0110000 1101101 1011011 1101101
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+   # ####   #### ####   
+   #    #   #       #   
+   #    # o #       #   
+   # ####   #### ####   
+   # #    o    # #      
+   # #         # #      
+   # ####   #### #### PM
+#+END_SRC
+
+* test_clock_update seconds-negative
+#+TESTY: program='./test_clock_update seconds-negative'
+
+#+BEGIN_SRC text
+{
+    // Tests whether the set_tod_from_secs() function
+    // returns an error if passed an out-of-range
+    // seconds. Should return 1 and not change the tod.
+    int SECS = -128;            // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // SHOULD NOT CHANGE
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 1
+tod = {
+  .hours   = -3,
+  .minutes = -5,
+  .seconds = -7,
+  .ampm    = -1,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update seconds-too-big
+#+TESTY: program='./test_clock_update seconds-too-big'
+
+#+BEGIN_SRC text
+{
+    // Tests whether the set_tod_from_secs() function
+    // returns an error if passed an out-of-range
+    // seconds. Should return 1 and not change the tod.
+    int SECS = 90000;           // arg to set_tod()
+    tod_t tod = {
+      .hours   = -3,
+      .minutes = -5,
+      .seconds = -7,
+      .ampm    = -1,
+    };                          // SHOULD NOT CHANGE
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    int ret = set_tod_from_secs( SECS, &tod );
+    printf("returned: %d\n",ret);
+    test_print_tod( tod );
+    print_ports();
+}
+returned: 1
+tod = {
+  .hours   = -3,
+  .minutes = -5,
+  .seconds = -7,
+  .ampm    = -1,
+}
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+#+END_SRC
+
+* test_clock_update minutes-range
+#+TESTY: program='./test_clock_update minutes-range'
+
+#+BEGIN_SRC text
+{
+    // Tests whether set_display_from_tod() checks
+    // ranges and returns and error. Should return 1
+    // and not change the dispint integer.
+    tod_t tod = {
+      .hours   = 8,
+      .minutes = 72,
+      .seconds = 23,
+      .ampm    = 2,
+    };
+    TIME_OF_DAY_SEC  = -1;      // should stay -1
+    CLOCK_DISPLAY_PORT = -1;    // should stay -1
+    *dispint = 0;               // should not change
+    int ret = set_display_from_tod(tod, dispint);
+    printf("ret: %d\n",ret);
+    printf("%-18s : %s\n%-18s : %s\n",
+           "dispint bits", bitstr(*dispint, INT_BITS),
+           "index", bitstr_index(INT_BITS));
+    printf("\n");  print_ports();  printf("\n");
+    CLOCK_DISPLAY_PORT = *dispint;
+    printf("Display based on dispint:\n");
+    print_clock_display();
+}
+ret: 1
+dispint bits       : 00 00 0000000 0000000 0000000 0000000
+index              : 30 28      21      14       7       0
+
+TIME_OF_DAY_SEC    : -1
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on dispint:
+                        
+                        
+          o             
+                        
+          o             
+                        
+                        
+#+END_SRC
+
+* test_clock_update update-fails
+#+TESTY: program='./test_clock_update update-fails'
+
+#+BEGIN_SRC text
+{
+    // Tests whether clock_update() correctly fails on
+    // bad seconds.
+    TIME_OF_DAY_SEC  =   91234;
+    CLOCK_DISPLAY_PORT = -1;
+    int ret = clock_update();   // updates DISPLAY
+    printf("ret: %d\n",ret);
+    print_ports();  printf("\n");
+    printf("Display based on CLOCK_DISPLAY_PORT:\n");
+    print_clock_display();
+}
+ret: 1
+TIME_OF_DAY_SEC    : 91234
+CLOCK_DISPLAY_PORT : 11 11 1111111 1111111 1111111 1111111
+index              : 30 28      21      14       7       0
+
+Display based on CLOCK_DISPLAY_PORT:
+#### ####   #### ####   
+#  # #  #   #  # #  #   
+#  # #  # o #  # #  #   
+#### ####   #### ####   
+#  # #  # o #  # #  #   
+#  # #  #   #  # #  # AM
+#### ####   #### #### PM
+#+END_SRC
+
+* clock_main 12345 is 3:25am
+
+#+TESTY: program='./clock_main 12345'
+#+BEGIN_SRC text
+TIME_OF_DAY_SEC set to: 12345
+result = set_tod_from_secs( 12345, &tod );
+result: 0
+tod = {        
+  .hours   = 3
+  .minutes = 25
+  .seconds = 45
+  .ampm    = 1
+}              
+Simulated time is: 03 : 25 : 45 am
+result = set_display_from_tod(tod, &display);
+result: 0
+display is
+bits:  00 01 0000000 1111001 1101101 1011011
+index: 30 28      21      14       7       0
+
+result = clock_update();
+result: 0
+CLOCK_DISPLAY_PORT is
+bits:  00 01 0000000 1111001 1101101 1011011
+index: 30 28      21      14       7       0
+
+Clock Display:
+     ####   #### ####   
+        #      # #      
+        # o    # #      
+     ####   #### ####   
+        # o #       #   
+        #   #       # AM
+     ####   #### ####   
+#+END_SRC
+
+* clock_main 24000 is 6:40am
+#+TESTY: program='./clock_main 24000'
+
+#+BEGIN_SRC text
+TIME_OF_DAY_SEC set to: 24000
+result = set_tod_from_secs( 24000, &tod );
+result: 0
+tod = {        
+  .hours   = 6
+  .minutes = 40
+  .seconds = 0
+  .ampm    = 1
+}              
+Simulated time is: 06 : 40 : 00 am
+result = set_display_from_tod(tod, &display);
+result: 0
+display is
+bits:  00 01 0000000 1011111 1110010 0111111
+index: 30 28      21      14       7       0
+
+result = clock_update();
+result: 0
+CLOCK_DISPLAY_PORT is
+bits:  00 01 0000000 1011111 1110010 0111111
+index: 30 28      21      14       7       0
+
+Clock Display:
+     ####   #  # ####   
+     #      #  # #  #   
+     #    o #  # #  #   
+     ####   #### #  #   
+     #  # o    # #  #   
+     #  #      # #  # AM
+     ####      # ####   
+#+END_SRC
+
+* clock_main 66091 is 6:21pm
+#+TESTY: program='./clock_main 66091'
+
+#+BEGIN_SRC text
+TIME_OF_DAY_SEC set to: 66091
+result = set_tod_from_secs( 66091, &tod );
+result: 0
+tod = {        
+  .hours   = 6
+  .minutes = 21
+  .seconds = 31
+  .ampm    = 2
+}              
+Simulated time is: 06 : 21 : 31 pm
+result = set_display_from_tod(tod, &display);
+result: 0
+display is
+bits:  00 10 0000000 1011111 1101101 0110000
+index: 30 28      21      14       7       0
+
+result = clock_update();
+result: 0
+CLOCK_DISPLAY_PORT is
+bits:  00 10 0000000 1011111 1101101 0110000
+index: 30 28      21      14       7       0
+
+Clock Display:
+     ####   ####    #   
+     #         #    #   
+     #    o    #    #   
+     ####   ####    #   
+     #  # o #       #   
+     #  #   #       #   
+     ####   ####    # PM
+#+END_SRC
+
+* clock_main 42994 is 11:56am
+#+TESTY: program='./clock_main 42994'
+
+#+BEGIN_SRC text
+TIME_OF_DAY_SEC set to: 42994
+result = set_tod_from_secs( 42994, &tod );
+result: 0
+tod = {        
+  .hours   = 11
+  .minutes = 56
+  .seconds = 34
+  .ampm    = 1
+}              
+Simulated time is: 11 : 56 : 34 am
+result = set_display_from_tod(tod, &display);
+result: 0
+display is
+bits:  00 01 0110000 0110000 1011011 1011111
+index: 30 28      21      14       7       0
+
+result = clock_update();
+result: 0
+CLOCK_DISPLAY_PORT is
+bits:  00 01 0110000 0110000 1011011 1011111
+index: 30 28      21      14       7       0
+
+Clock Display:
+   #    #   #### ####   
+   #    #   #    #      
+   #    # o #    #      
+   #    #   #### ####   
+   #    # o    # #  #   
+   #    #      # #  # AM
+   #    #   #### ####   
+#+END_SRC
+
+* clock_main 80000 is 10:13pm
+#+TESTY: program='./clock_main 80000'
+
+#+BEGIN_SRC text
+TIME_OF_DAY_SEC set to: 80000
+result = set_tod_from_secs( 80000, &tod );
+result: 0
+tod = {        
+  .hours   = 10
+  .minutes = 13
+  .seconds = 20
+  .ampm    = 2
+}              
+Simulated time is: 10 : 13 : 20 pm
+result = set_display_from_tod(tod, &display);
+result: 0
+display is
+bits:  00 10 0110000 0111111 0110000 1111001
+index: 30 28      21      14       7       0
+
+result = clock_update();
+result: 0
+CLOCK_DISPLAY_PORT is
+bits:  00 10 0110000 0111111 0110000 1111001
+index: 30 28      21      14       7       0
+
+Clock Display:
+   # ####      # ####   
+   # #  #      #    #   
+   # #  # o    #    #   
+   # #  #      # ####   
+   # #  # o    #    #   
+   # #  #      #    #   
+   # ####      # #### PM
+#+END_SRC
+
